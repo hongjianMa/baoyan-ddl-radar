@@ -17,7 +17,7 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -48,6 +48,7 @@ EXCLUDED_TITLE_WORDS = ("拟录取", "录取名单", "公示", "专业目录", "
 ALLOWED_SUFFIXES = (".edu.cn", ".ac.cn")
 USER_AGENT = "BaoyanDDLBot/1.0 (+manual-review; respectful daily crawler)"
 TIMEOUT = 15
+RECENT_WITHOUT_DEADLINE_DAYS = 45
 
 
 class TextExtractor(HTMLParser):
@@ -172,6 +173,26 @@ def search_school(school: str, year: int) -> list[tuple[str, str]]:
 
 def extract_deadline(text: str) -> str | None:
     current_year = date.today().year
+    window_match = re.search(r"(?:报名|申请|系统填报)时间[^。；\n]{0,180}", text)
+    if window_match:
+        date_matches = re.findall(
+            r"(?:(20\d{2})\s*年)?\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日?"
+            r"(?:[^\d。；\n]{0,8}(\d{1,2})\s*[:：点时]\s*(\d{1,2})?)?",
+            window_match.group(0),
+        )
+        if date_matches:
+            year_text, month_text, day_text, hour_text, minute_text = date_matches[-1]
+            try:
+                deadline = datetime(
+                    int(year_text or current_year),
+                    int(month_text),
+                    int(day_text),
+                    int(hour_text or 23),
+                    int(minute_text or 59),
+                )
+                return deadline.isoformat() + "+08:00"
+            except ValueError:
+                pass
     patterns = [
         r"(?:截止(?:时间|日期)?|报名截至|申请截至)[^。；\n]{0,35}?(?:(20\d{2})\s*年)?\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日?(?:[^。；\n]{0,12}?(\d{1,2})\s*[时:：点]\s*(\d{1,2})?\s*分?)?",
         r"(?:(20\d{2})[-/.年])\s*(\d{1,2})[-/.月]\s*(\d{1,2})日?[^。；\n]{0,18}?(?:截止|截至)",
@@ -189,6 +210,41 @@ def extract_deadline(text: str) -> str | None:
         except ValueError:
             continue
     return None
+
+
+def extract_published_date(text: str) -> str | None:
+    patterns = (
+        r"发布时间\s*[:：]\s*(20\d{2})[-/.年]\s*(\d{1,2})[-/.月]\s*(\d{1,2})日?",
+        r"发布日期\s*[:：]\s*(20\d{2})[-/.年]\s*(\d{1,2})[-/.月]\s*(\d{1,2})日?",
+        r"(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})",
+    )
+    for pattern in patterns:
+        match = re.search(pattern, text)
+        if not match:
+            continue
+        try:
+            return date(*(int(value) for value in match.groups())).isoformat()
+        except ValueError:
+            continue
+    return None
+
+
+def is_active_notice(deadline: str | None, published_at: str | None) -> bool:
+    today = date.today()
+    if not published_at:
+        return False
+    try:
+        published = date.fromisoformat(published_at)
+    except ValueError:
+        return False
+    if published.year != today.year or published > today:
+        return False
+    if deadline:
+        try:
+            return datetime.fromisoformat(deadline).date() >= today
+        except ValueError:
+            return False
+    return today - published <= timedelta(days=RECENT_WITHOUT_DEADLINE_DAYS)
 
 
 def infer_type(value: str) -> str:
@@ -277,6 +333,9 @@ def candidate_from_page(
     clean_url = canonical_url(resolved_url)
     digest = hashlib.sha256(clean_url.encode("utf-8")).hexdigest()[:16]
     deadline = extract_deadline(combined)
+    published_at = extract_published_date(combined)
+    if not is_active_notice(deadline, published_at):
+        return None
     notice_type = infer_type(combined)
     confidence = "high" if deadline else "medium"
     today = date.today().isoformat()
@@ -287,6 +346,7 @@ def candidate_from_page(
         "type": notice_type,
         "title": title[:240] or title_hint[:240] or "待审核的官方通知",
         "deadline": deadline,
+        "publishedAt": published_at,
         "sourceUrl": clean_url,
         "applyUrl": clean_url,
         "tags": [*school.get("tags", []), notice_type, "自动发现"],
@@ -296,6 +356,7 @@ def candidate_from_page(
         "reviewStatus": "pending",
         "confidence": confidence,
         "sourceKind": "detail",
+        "activityStatus": "deadline-confirmed" if deadline else "recent-needs-deadline-review",
     }
 
 
@@ -376,6 +437,7 @@ def main() -> int:
         if item.get("sourceKind") == "detail"
         and is_notice_title(item.get("title", ""))
         and is_cs_specific(item.get("title", ""), item.get("sourceUrl", ""))
+        and is_active_notice(item.get("deadline"), item.get("publishedAt"))
     ]
     known_urls = {canonical_url(item.get("sourceUrl", "")) for item in published + pending if item.get("sourceUrl")}
     new_items: list[dict] = []
@@ -406,6 +468,8 @@ def main() -> int:
         "schoolsAttempted": len(schools),
         "newCandidates": len(new_items),
         "pendingTotal": len(all_pending),
+        "schoolsWithDirectSources": len([school for school in schools if overrides.get(school["name"])]),
+        "schoolsUsingSearchFallback": len([school for school in schools if not overrides.get(school["name"])]),
         "searchErrors": errors,
     }
     if not args.dry_run:

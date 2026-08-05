@@ -90,6 +90,14 @@ python scripts/review_pending.py --reject auto-记录ID
 把其研究生院或计算机学院招生通知列表页加到这里即可；抓取器仍会进行官网域名、
 学校名和推免关键词校验。
 
+抓取完整性以 `data/source-overrides.json` 的学院通知栏目为准，搜索引擎只作为兜底。
+发现漏抓时，应补充该学院的通知列表页，而不是只添加某一篇通知。抓取报告中的
+`schoolsWithDirectSources` 和 `schoolsUsingSearchFallback` 会显示真实来源覆盖情况。
+
+待审核数据只保留当年发布且仍可能有效的通知：有截止时间时要求截止日期不早于今天；
+无法从正文提取截止时间时，只保留最近 45 天发布的通知，并标记
+`activityStatus: recent-needs-deadline-review`，审核时必须从官网或附件补齐截止时间。
+
 ## 本地预览
 
 Windows PowerShell：

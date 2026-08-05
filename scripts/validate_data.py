@@ -61,7 +61,7 @@ def main():
             errors.append(f"{notice_id} tags must be a list")
 
     for index, notice in enumerate(pending):
-        required = REQUIRED - {"deadline"}
+        required = (REQUIRED - {"deadline"}) | {"publishedAt", "sourceKind", "activityStatus"}
         missing = required - set(notice)
         if missing:
             errors.append(f"pending[{index}] missing fields: {', '.join(sorted(missing))}")
@@ -77,6 +77,10 @@ def main():
                 errors.append(f"{notice_id} has invalid pending deadline")
         if notice.get("verified") is not False:
             errors.append(f"{notice_id} pending record must have verified=false")
+        try:
+            datetime.fromisoformat(notice.get("publishedAt", ""))
+        except ValueError:
+            errors.append(f"{notice_id} has invalid publishedAt")
 
     if errors:
         print("Data validation failed:")
