@@ -31,6 +31,20 @@ REPORT_PATH = DATA / "crawl-report.json"
 
 NOTICE_WORDS = ("推免", "预推免", "推荐免试", "夏令营", "优秀大学生", "直博", "九推")
 CS_WORDS = ("计算机", "软件", "人工智能", "网络空间安全", "信息", "电子", "自动化", "大数据")
+STRONG_CS_WORDS = (
+    "计算机",
+    "软件",
+    "人工智能",
+    "网络空间安全",
+    "网安",
+    "信息科学",
+    "信息工程",
+    "电子信息",
+    "自动化",
+    "大数据",
+)
+CS_HOST_LABELS = {"cs", "cse", "scs", "scse", "sse", "ai", "computer", "software", "cyber", "ccst"}
+EXCLUDED_TITLE_WORDS = ("拟录取", "录取名单", "公示", "专业目录", "工作总结", "交流参与者")
 ALLOWED_SUFFIXES = (".edu.cn", ".ac.cn")
 USER_AGENT = "BaoyanDDLBot/1.0 (+manual-review; respectful daily crawler)"
 TIMEOUT = 15
@@ -206,8 +220,18 @@ def is_notice_title(value: str) -> bool:
         return False
     if not any(word in normalized for word in NOTICE_WORDS):
         return False
+    if any(word in normalized for word in EXCLUDED_TITLE_WORDS):
+        return False
     generic_titles = ("招生信息", "研究生招生", "推荐免试", "通知公告", "招生动态")
-    return not any(normalized == item or normalized.endswith(f"-{item}") for item in generic_titles)
+    core_title = re.split(r"\s*[-|_]\s*", normalized, maxsplit=1)[0]
+    return not any(core_title == item or normalized.endswith(f"-{item}") for item in generic_titles)
+
+
+def is_cs_specific(title: str, url: str) -> bool:
+    if any(word in title for word in STRONG_CS_WORDS):
+        return True
+    host_labels = set((urllib.parse.urlsplit(url).hostname or "").lower().split("."))
+    return bool(host_labels & CS_HOST_LABELS)
 
 
 def choose_notice_title(parser: TextExtractor, title_hint: str) -> str | None:
@@ -245,7 +269,7 @@ def candidate_from_page(
     combined = f"{title} {visible}"
     if not has_target_year(combined[:80_000], year):
         return None
-    if not any(word in combined for word in CS_WORDS):
+    if not is_cs_specific(title, resolved_url):
         return None
     if school["name"] not in combined and school["name"] not in title_hint:
         return None
@@ -346,7 +370,13 @@ def main() -> int:
 
     overrides = load_json(OVERRIDES_PATH, {})
     published = load_json(NOTICES_PATH, [])
-    pending = load_json(PENDING_PATH, [])
+    pending = [
+        item
+        for item in load_json(PENDING_PATH, [])
+        if item.get("sourceKind") == "detail"
+        and is_notice_title(item.get("title", ""))
+        and is_cs_specific(item.get("title", ""), item.get("sourceUrl", ""))
+    ]
     known_urls = {canonical_url(item.get("sourceUrl", "")) for item in published + pending if item.get("sourceUrl")}
     new_items: list[dict] = []
     errors: dict[str, str] = {}
