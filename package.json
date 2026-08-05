@@ -1,0 +1,9 @@
+{
+  "name": "baoyan-ddl-radar",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "python scripts/build_site.py",
+    "validate": "python scripts/validate_data.py"
+  }
+}

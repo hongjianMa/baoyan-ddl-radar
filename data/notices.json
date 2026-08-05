@@ -1,0 +1,44 @@
+[
+  {
+    "id": "demo-zju-cs-2026-pretui",
+    "school": "浙江大学",
+    "college": "计算机科学与技术学院",
+    "type": "预推免",
+    "title": "示例：2026 年接收推荐免试研究生报名通知",
+    "deadline": "2026-09-12T17:00:00+08:00",
+    "sourceUrl": "#",
+    "applyUrl": "#",
+    "tags": ["985", "211", "计算机", "预推免"],
+    "lastCheckedAt": "2026-08-05",
+    "verified": false,
+    "demo": true
+  },
+  {
+    "id": "demo-ucas-ai-2026-pretui",
+    "school": "中国科学院大学",
+    "college": "人工智能学院",
+    "type": "预推免",
+    "title": "示例：2026 年优秀大学生推免生报名通知",
+    "deadline": "2026-09-18T12:00:00+08:00",
+    "sourceUrl": "#",
+    "applyUrl": "#",
+    "tags": ["国科大", "中科院", "人工智能", "预推免"],
+    "lastCheckedAt": "2026-08-05",
+    "verified": false,
+    "demo": true
+  },
+  {
+    "id": "demo-buaa-cs-2026-summer",
+    "school": "北京航空航天大学",
+    "college": "计算机学院",
+    "type": "夏令营",
+    "title": "示例：2026 年全国优秀大学生夏令营活动通知",
+    "deadline": "2026-06-20T23:59:00+08:00",
+    "sourceUrl": "#",
+    "applyUrl": "#",
+    "tags": ["985", "211", "计算机", "夏令营"],
+    "lastCheckedAt": "2026-08-01",
+    "verified": false,
+    "demo": true
+  }
+]

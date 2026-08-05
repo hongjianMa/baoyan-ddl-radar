@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>保研 DDL 雷达</title>
+    <meta
+      name="description"
+      content="面向计算机保研预推免、夏令营和九推信息的可部署收集网站。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-label="站点概览">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <p class="eyebrow">CS 推免信息收集</p>
+            <h1>保研 DDL 雷达</h1>
+          </div>
+        </div>
+        <div class="hero-copy">
+          <p>
+            覆盖 985、211、中国科学院大学与中科院院所方向，按官方通知维护报名入口、
+            截止时间和核验状态。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#notices">查看通知</a>
+            <a class="button" href="#editor">新增记录</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="关键统计">
+        <article>
+          <span class="metric-label">报名中</span>
+          <strong id="activeCount">0</strong>
+        </article>
+        <article>
+          <span class="metric-label">7 天内截止</span>
+          <strong id="urgentCount">0</strong>
+        </article>
+        <article>
+          <span class="metric-label">覆盖目标</span>
+          <strong id="targetCount">0</strong>
+        </article>
+        <article>
+          <span class="metric-label">最近核验</span>
+          <strong id="lastChecked">-</strong>
+        </article>
+      </section>
+
+      <section class="workspace" id="notices">
+        <aside class="filters" aria-label="筛选条件">
+          <div class="filter-block">
+            <label for="searchInput">搜索</label>
+            <input id="searchInput" type="search" placeholder="学校、学院、关键词" />
+          </div>
+          <div class="filter-grid">
+            <div class="filter-block">
+              <label for="tagFilter">院校类型</label>
+              <select id="tagFilter">
+                <option value="all">全部</option>
+                <option value="985">985</option>
+                <option value="211">211</option>
+                <option value="国科大">国科大</option>
+                <option value="中科院">中科院</option>
+              </select>
+            </div>
+            <div class="filter-block">
+              <label for="typeFilter">通知类型</label>
+              <select id="typeFilter">
+                <option value="all">全部</option>
+                <option value="夏令营">夏令营</option>
+                <option value="预推免">预推免</option>
+                <option value="九推">九推</option>
+                <option value="直博">直博</option>
+              </select>
+            </div>
+            <div class="filter-block">
+              <label for="statusFilter">状态</label>
+              <select id="statusFilter">
+                <option value="all">全部</option>
+                <option value="open">报名中</option>
+                <option value="soon">即将截止</option>
+                <option value="closed">已截止</option>
+              </select>
+            </div>
+            <div class="filter-block">
+              <label for="sortSelect">排序</label>
+              <select id="sortSelect">
+                <option value="deadlineAsc">截止时间近到远</option>
+                <option value="updatedDesc">最近核验优先</option>
+                <option value="schoolAsc">学校名称</option>
+              </select>
+            </div>
+          </div>
+          <button class="button wide" id="resetButton" type="button">重置筛选</button>
+          <div class="source-note">
+            <strong>维护原则</strong>
+            <p>每条信息保留官方来源、截止时间、核验日期和可信状态，前台永远以官方链接为准。</p>
+          </div>
+        </aside>
+
+        <section class="panel" aria-label="通知列表">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">通知列表</p>
+              <h2>今年计算机保研预推免信息</h2>
+            </div>
+            <span id="resultCount" class="result-count">0 条</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>学校 / 学院</th>
+                  <th>类型</th>
+                  <th>截止时间</th>
+                  <th>状态</th>
+                  <th>核验</th>
+                  <th>链接</th>
+                </tr>
+              </thead>
+              <tbody id="noticeBody"></tbody>
+            </table>
+          </div>
+          <p id="emptyState" class="empty-state" hidden>没有匹配的通知，换个筛选条件试试。</p>
+        </section>
+      </section>
+
+      <section class="editor" id="editor" aria-label="新增记录生成器">
+        <div class="editor-intro">
+          <p class="eyebrow">方便更新</p>
+          <h2>新增记录生成器</h2>
+          <p>
+            把学校官网通知粘进来，生成标准 JSON 记录后追加到
+            <code>data/notices.json</code>。后面接爬虫时也沿用这套字段。
+          </p>
+        </div>
+        <form id="noticeForm" class="notice-form">
+          <label>
+            学校
+            <input name="school" required placeholder="例如：浙江大学" />
+          </label>
+          <label>
+            学院
+            <input name="college" required placeholder="例如：计算机科学与技术学院" />
+          </label>
+          <label>
+            类型
+            <select name="type">
+              <option>预推免</option>
+              <option>夏令营</option>
+              <option>九推</option>
+              <option>直博</option>
+            </select>
+          </label>
+          <label>
+            截止时间
+            <input name="deadline" type="datetime-local" required />
+          </label>
+          <label class="wide-field">
+            标题
+            <input name="title" required placeholder="官方通知标题" />
+          </label>
+          <label class="wide-field">
+            官方链接
+            <input name="sourceUrl" type="url" required placeholder="https://..." />
+          </label>
+          <label>
+            标签
+            <input name="tags" placeholder="985,211,计算机,预推免" />
+          </label>
+          <label>
+            核验日期
+            <input name="lastCheckedAt" type="date" />
+          </label>
+          <button class="button primary wide-field" type="submit">生成 JSON</button>
+        </form>
+        <div class="json-output">
+          <div class="output-toolbar">
+            <span>生成结果</span>
+            <button id="copyJson" class="button small" type="button">复制</button>
+          </div>
+          <pre id="jsonPreview">填写表单后会在这里生成记录。</pre>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

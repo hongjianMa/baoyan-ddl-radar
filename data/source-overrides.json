@@ -1,0 +1,15 @@
+{
+  "北京大学": ["https://cs.pku.edu.cn/zsxx/yjszs/index.htm"],
+  "清华大学": ["https://www.cs.tsinghua.edu.cn/zsjy/yjszs.htm"],
+  "浙江大学": ["http://www.cs.zju.edu.cn/csen/27012/list.htm"],
+  "中国科学技术大学": ["https://cs.ustc.edu.cn/2020/0507/c23235a421914/page.htm"],
+  "中国科学院大学": ["https://admission.ucas.ac.cn/"],
+  "北京航空航天大学": ["https://scse.buaa.edu.cn/zsjy/yjszs.htm"],
+  "北京邮电大学": ["https://scs.bupt.edu.cn/zsjy/yjszs.htm"],
+  "上海交通大学": ["https://www.cs.sjtu.edu.cn/Admission.aspx"],
+  "南京大学": ["https://cs.nju.edu.cn/rcpy/yjsjy/zsxx/index.html"],
+  "武汉大学": ["https://cs.whu.edu.cn/zsjy/yjszs.htm"],
+  "华中科技大学": ["https://cs.hust.edu.cn/zsxx/yjszs.htm"],
+  "电子科技大学": ["https://www.scse.uestc.edu.cn/zsxx/yjszs.htm"],
+  "西安电子科技大学": ["https://cs.xidian.edu.cn/zsjy/yjszs.htm"]
+}

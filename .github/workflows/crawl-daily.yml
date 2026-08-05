@@ -1,0 +1,36 @@
+name: Crawl official notices
+
+on:
+  schedule:
+    - cron: "15 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-crawler
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/crawl_sources.py
+      - run: python scripts/validate_data.py
+      - name: Save new review candidates
+        run: |
+          if git diff --quiet; then
+            echo "No new candidates"
+            exit 0
+          fi
+          git config user.name "baoyan-ddl-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/pending-notices.json data/crawl-report.json
+          git commit -m "data: refresh pending notices"
+          git push
