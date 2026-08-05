@@ -42,14 +42,40 @@ class TextExtractor(HTMLParser):
         self.parts: list[str] = []
         self.in_title = False
         self.title_parts: list[str] = []
+        self.heading_tag: str | None = None
+        self.heading_parts: list[str] = []
+        self.headings: list[str] = []
+        self.link_href: str | None = None
+        self.link_parts: list[str] = []
+        self.links: list[tuple[str, str]] = []
 
     def handle_starttag(self, tag, attrs):
-        if tag.lower() == "title":
+        tag = tag.lower()
+        attributes = dict(attrs)
+        if tag == "title":
             self.in_title = True
+        if tag in {"h1", "h2"}:
+            self.heading_tag = tag
+            self.heading_parts = []
+        if tag == "a" and attributes.get("href"):
+            self.link_href = attributes["href"]
+            self.link_parts = []
 
     def handle_endtag(self, tag):
-        if tag.lower() == "title":
+        tag = tag.lower()
+        if tag == "title":
             self.in_title = False
+        if tag == self.heading_tag:
+            heading = " ".join(self.heading_parts).strip()
+            if heading:
+                self.headings.append(heading)
+            self.heading_tag = None
+            self.heading_parts = []
+        if tag == "a" and self.link_href:
+            label = " ".join(self.link_parts).strip()
+            self.links.append((label, self.link_href))
+            self.link_href = None
+            self.link_parts = []
 
     def handle_data(self, data):
         value = " ".join(data.split())
@@ -57,6 +83,10 @@ class TextExtractor(HTMLParser):
             self.parts.append(value)
             if self.in_title:
                 self.title_parts.append(value)
+            if self.heading_tag:
+                self.heading_parts.append(value)
+            if self.link_href:
+                self.link_parts.append(value)
 
     @property
     def text(self) -> str:
@@ -83,17 +113,24 @@ def save_json(path: Path, value) -> None:
 def fetch(url: str) -> tuple[str, str]:
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
-        content_type = response.headers.get_content_charset() or "utf-8"
         body = response.read(2_000_000)
-        try:
-            return body.decode(content_type, errors="replace"), response.geturl()
-        except LookupError:
-            return body.decode("utf-8", errors="replace"), response.geturl()
+        header_charset = response.headers.get_content_charset()
+        charset_match = re.search(br"charset\s*=\s*['\"]?([a-zA-Z0-9_-]+)", body[:8192], re.I)
+        meta_charset = charset_match.group(1).decode("ascii", errors="ignore") if charset_match else None
+        for encoding in (header_charset, meta_charset, "utf-8", "gb18030"):
+            if not encoding:
+                continue
+            try:
+                return body.decode(encoding), response.geturl()
+            except (LookupError, UnicodeDecodeError):
+                continue
+        return body.decode("utf-8", errors="replace"), response.geturl()
 
 
 def canonical_url(url: str) -> str:
     parsed = urllib.parse.urlsplit(url)
     clean_path = re.sub(r"/{2,}", "/", parsed.path or "/")
+    clean_path = re.sub(r"/pagem\.htm$", "/page.htm", clean_path, flags=re.I)
     return urllib.parse.urlunsplit((parsed.scheme.lower(), parsed.netloc.lower(), clean_path, "", ""))
 
 
@@ -103,7 +140,10 @@ def is_official_url(url: str) -> bool:
 
 
 def search_school(school: str, year: int) -> list[tuple[str, str]]:
-    query = f'"{school}" ({" OR ".join(NOTICE_WORDS)}) ({" OR ".join(CS_WORDS)}) {year}'
+    query = (
+        f'"{school}" ({" OR ".join(NOTICE_WORDS)}) '
+        f'({" OR ".join(CS_WORDS)}) ({year} OR {year + 1})'
+    )
     url = "https://www.bing.com/search?format=rss&q=" + urllib.parse.quote(query)
     xml_text, _ = fetch(url)
     root = ET.fromstring(xml_text)
@@ -147,19 +187,63 @@ def infer_type(value: str) -> str:
     return "预推免"
 
 
-def candidate_from_url(school: dict, title_hint: str, url: str) -> dict | None:
-    try:
-        page, resolved_url = fetch(url)
-    except Exception:
+def infer_college(title: str) -> str:
+    pattern = (
+        r"((?:计算机(?:科学与技术)?|软件|人工智能|网络空间安全|电子信息|"
+        r"信息科学与技术|自动化|大数据)[^，。；:：]{0,12}(?:学院|系|研究院))"
+    )
+    match = re.search(pattern, title)
+    return match.group(1) if match else "待审核确认"
+
+
+def has_target_year(value: str, year: int) -> bool:
+    return str(year) in value or str(year + 1) in value
+
+
+def is_notice_title(value: str) -> bool:
+    normalized = " ".join(value.split())
+    if len(normalized) < 10:
+        return False
+    if not any(word in normalized for word in NOTICE_WORDS):
+        return False
+    generic_titles = ("招生信息", "研究生招生", "推荐免试", "通知公告", "招生动态")
+    return not any(normalized == item or normalized.endswith(f"-{item}") for item in generic_titles)
+
+
+def choose_notice_title(parser: TextExtractor, title_hint: str) -> str | None:
+    candidates = [*parser.headings, parser.title.strip(), title_hint.strip()]
+    return next((value for value in candidates if is_notice_title(value)), None)
+
+
+def extract_detail_links(parser: TextExtractor, base_url: str, year: int) -> list[tuple[str, str]]:
+    results = []
+    seen = set()
+    for label, href in parser.links:
+        label = " ".join(label.split())
+        if not is_notice_title(label) or not has_target_year(label, year):
+            continue
+        url = urllib.parse.urljoin(base_url, href)
+        key = canonical_url(url)
+        if not is_official_url(key) or key in seen:
+            continue
+        seen.add(key)
+        results.append((label, key))
+    return results[:16]
+
+
+def candidate_from_page(
+    school: dict,
+    title_hint: str,
+    resolved_url: str,
+    parser: TextExtractor,
+    year: int,
+) -> dict | None:
+    title = choose_notice_title(parser, title_hint)
+    if not title:
         return None
-    if not is_official_url(resolved_url):
-        return None
-    parser = TextExtractor()
-    parser.feed(page)
-    title = parser.title.strip() or title_hint.strip()
     visible = parser.text[:250_000]
     combined = f"{title} {visible}"
-    if not any(word in combined for word in NOTICE_WORDS):
+    if not has_target_year(combined[:80_000], year):
         return None
     if not any(word in combined for word in CS_WORDS):
         return None
@@ -170,12 +254,12 @@ def candidate_from_url(school: dict, title_hint: str, url: str) -> dict | None:
     digest = hashlib.sha256(clean_url.encode("utf-8")).hexdigest()[:16]
     deadline = extract_deadline(combined)
     notice_type = infer_type(combined)
-    confidence = "high" if deadline and any(word in title for word in NOTICE_WORDS) else "medium"
+    confidence = "high" if deadline else "medium"
     today = date.today().isoformat()
     return {
         "id": f"auto-{digest}",
         "school": school["name"],
-        "college": "待审核确认",
+        "college": infer_college(title),
         "type": notice_type,
         "title": title[:240] or title_hint[:240] or "待审核的官方通知",
         "deadline": deadline,
@@ -187,6 +271,7 @@ def candidate_from_url(school: dict, title_hint: str, url: str) -> dict | None:
         "verified": False,
         "reviewStatus": "pending",
         "confidence": confidence,
+        "sourceKind": "detail",
     }
 
 
@@ -199,14 +284,41 @@ def crawl_school(school: dict, override_urls: list[str], year: int) -> tuple[lis
     else:
         search_error = None
 
-    found = []
-    seen = set()
-    for title, url in links:
+    found: list[dict] = []
+    seen: set[str] = set()
+    detail_queue: list[tuple[str, str]] = []
+    for title_hint, url in links:
         key = canonical_url(url)
         if key in seen:
             continue
         seen.add(key)
-        candidate = candidate_from_url(school, title, url)
+        try:
+            page, resolved_url = fetch(url)
+        except Exception:
+            continue
+        if not is_official_url(resolved_url):
+            continue
+        parser = TextExtractor()
+        parser.feed(page)
+        candidate = candidate_from_page(school, title_hint, resolved_url, parser, year)
+        if candidate:
+            found.append(candidate)
+        else:
+            detail_queue.extend(extract_detail_links(parser, resolved_url, year))
+        time.sleep(0.15)
+
+    for title_hint, url in detail_queue:
+        key = canonical_url(url)
+        if key in seen:
+            continue
+        seen.add(key)
+        try:
+            page, resolved_url = fetch(url)
+        except Exception:
+            continue
+        parser = TextExtractor()
+        parser.feed(page)
+        candidate = candidate_from_page(school, title_hint, resolved_url, parser, year)
         if candidate:
             found.append(candidate)
         time.sleep(0.15)

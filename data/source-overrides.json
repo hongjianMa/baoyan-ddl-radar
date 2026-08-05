@@ -7,7 +7,10 @@
   "北京航空航天大学": ["https://scse.buaa.edu.cn/zsjy/yjszs.htm"],
   "北京邮电大学": ["https://scs.bupt.edu.cn/zsjy/yjszs.htm"],
   "上海交通大学": ["https://www.cs.sjtu.edu.cn/Admission.aspx"],
-  "南京大学": ["https://cs.nju.edu.cn/rcpy/yjsjy/zsxx/index.html"],
+  "南京大学": [
+    "https://cs.nju.edu.cn/1702/list.htm",
+    "https://cs.nju.edu.cn/d4/59/c1702a840793/pagem.htm"
+  ],
   "武汉大学": ["https://cs.whu.edu.cn/zsjy/yjszs.htm"],
   "华中科技大学": ["https://cs.hust.edu.cn/zsxx/yjszs.htm"],
   "电子科技大学": ["https://www.scse.uestc.edu.cn/zsxx/yjszs.htm"],
