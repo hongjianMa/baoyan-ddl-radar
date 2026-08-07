@@ -1,5 +1,28 @@
 [
   {
+    "id": "auto-ecf889667004a563",
+    "school": "大连海事大学",
+    "college": "待审核确认",
+    "type": "夏令营",
+    "title": "大连海事大学信息科学技术学院关于开展2026年优秀大学生学术夏令营活动的通知-大连海事大学研究生院",
+    "deadline": null,
+    "publishedAt": "2026-07-08",
+    "sourceUrl": "https://grs.dlmu.edu.cn/info/1139/34581.htm",
+    "applyUrl": "https://grs.dlmu.edu.cn/info/1139/34581.htm",
+    "tags": [
+      "211",
+      "夏令营",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-08-07T04:07:05+00:00",
+    "lastCheckedAt": "2026-08-07",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-a3ff8e2220845327",
     "school": "南京大学",
     "college": "计算机学院",
