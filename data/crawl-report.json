@@ -1,8 +1,8 @@
 {
-  "ranAt": "2026-08-26T02:40:15+00:00",
+  "ranAt": "2026-08-27T11:18:50+00:00",
   "schoolsAttempted": 118,
-  "newCandidates": 0,
-  "pendingTotal": 1,
+  "newCandidates": 1,
+  "pendingTotal": 2,
   "schoolsWithDirectSources": 14,
   "schoolsUsingSearchFallback": 104,
   "searchErrors": {}
