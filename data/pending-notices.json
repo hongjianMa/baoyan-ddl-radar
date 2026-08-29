@@ -1,5 +1,29 @@
 [
   {
+    "id": "auto-51ffd11bc274a5be",
+    "school": "东南大学",
+    "college": "待审核确认",
+    "type": "预推免",
+    "title": "东南大学雷恩研究生学院计算机技术专业接收2027年推荐免试研究生考核入选名单",
+    "deadline": null,
+    "publishedAt": "2026-08-28",
+    "sourceUrl": "https://cs.seu.edu.cn/2026/0828/c49342a580717/page.htm",
+    "applyUrl": "https://cs.seu.edu.cn/2026/0828/c49342a580717/page.htm",
+    "tags": [
+      "985",
+      "211",
+      "预推免",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-08-29T07:54:51+00:00",
+    "lastCheckedAt": "2026-08-29",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-a247ea9b094064b6",
     "school": "东南大学",
     "college": "待审核确认",
