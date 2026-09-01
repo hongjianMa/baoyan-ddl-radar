@@ -24,30 +24,6 @@
     "activityStatus": "recent-needs-deadline-review"
   },
   {
-    "id": "auto-a247ea9b094064b6",
-    "school": "东南大学",
-    "college": "待审核确认",
-    "type": "预推免",
-    "title": "【本科生】关于学院2027届推荐免试攻读研究生申请的通知",
-    "deadline": "2026-08-31T12:59:00+08:00",
-    "publishedAt": "2026-08-27",
-    "sourceUrl": "https://cs.seu.edu.cn/2026/0827/c49342a580535/page.htm",
-    "applyUrl": "https://cs.seu.edu.cn/2026/0827/c49342a580535/page.htm",
-    "tags": [
-      "985",
-      "211",
-      "预推免",
-      "自动发现"
-    ],
-    "discoveredAt": "2026-08-27T11:14:25+00:00",
-    "lastCheckedAt": "2026-08-27",
-    "verified": false,
-    "reviewStatus": "pending",
-    "confidence": "high",
-    "sourceKind": "detail",
-    "activityStatus": "deadline-confirmed"
-  },
-  {
     "id": "auto-a3ff8e2220845327",
     "school": "南京大学",
     "college": "计算机学院",
