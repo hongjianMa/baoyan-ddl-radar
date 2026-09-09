@@ -1,5 +1,29 @@
 [
   {
+    "id": "auto-c2072694ba6d1f3d",
+    "school": "南京大学",
+    "college": "计算机学院",
+    "type": "预推免",
+    "title": "南京大学计算机学院2027年接收推荐免试研究生工作实施细则",
+    "deadline": null,
+    "publishedAt": "2026-09-08",
+    "sourceUrl": "https://cs.nju.edu.cn/dd/ea/c1702a843242/page.htm",
+    "applyUrl": "https://cs.nju.edu.cn/dd/ea/c1702a843242/page.htm",
+    "tags": [
+      "985",
+      "211",
+      "预推免",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-09T06:01:38+00:00",
+    "lastCheckedAt": "2026-09-09",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-51ffd11bc274a5be",
     "school": "东南大学",
     "college": "待审核确认",
