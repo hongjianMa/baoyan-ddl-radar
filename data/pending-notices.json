@@ -1,5 +1,29 @@
 [
   {
+    "id": "auto-ec2726232aa5eaf5",
+    "school": "重庆大学",
+    "college": "自动化学院",
+    "type": "直博",
+    "title": "重庆大学自动化学院2027年推免研究生招生录取工作实施细则",
+    "deadline": null,
+    "publishedAt": "2026-09-17",
+    "sourceUrl": "https://yz.cqu.edu.cn/news/2026-09/2598.html",
+    "applyUrl": "https://yz.cqu.edu.cn/news/2026-09/2598.html",
+    "tags": [
+      "985",
+      "211",
+      "直博",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-17T06:12:13+00:00",
+    "lastCheckedAt": "2026-09-17",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-c2072694ba6d1f3d",
     "school": "南京大学",
     "college": "计算机学院",
