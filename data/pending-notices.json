@@ -1,5 +1,29 @@
 [
   {
+    "id": "auto-38802130d584a48a",
+    "school": "重庆大学",
+    "college": "大数据与软件学院",
+    "type": "直博",
+    "title": "重庆大学大数据与软件学院2027年推免研究生复试录取工作实施细则",
+    "deadline": null,
+    "publishedAt": "2026-09-17",
+    "sourceUrl": "https://yz.cqu.edu.cn/news/2026-09/2600.html",
+    "applyUrl": "https://yz.cqu.edu.cn/news/2026-09/2600.html",
+    "tags": [
+      "985",
+      "211",
+      "直博",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-18T05:59:58+00:00",
+    "lastCheckedAt": "2026-09-18",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-ec2726232aa5eaf5",
     "school": "重庆大学",
     "college": "自动化学院",
@@ -65,30 +89,6 @@
     ],
     "discoveredAt": "2026-08-29T07:54:51+00:00",
     "lastCheckedAt": "2026-08-29",
-    "verified": false,
-    "reviewStatus": "pending",
-    "confidence": "medium",
-    "sourceKind": "detail",
-    "activityStatus": "recent-needs-deadline-review"
-  },
-  {
-    "id": "auto-a3ff8e2220845327",
-    "school": "南京大学",
-    "college": "计算机学院",
-    "type": "预推免",
-    "title": "南京大学计算机学院2027 年接收推荐免试研究生报名通知",
-    "deadline": null,
-    "publishedAt": "2026-08-03",
-    "sourceUrl": "https://cs.nju.edu.cn/d4/59/c1702a840793/page.htm",
-    "applyUrl": "https://cs.nju.edu.cn/d4/59/c1702a840793/page.htm",
-    "tags": [
-      "985",
-      "211",
-      "预推免",
-      "自动发现"
-    ],
-    "discoveredAt": "2026-08-05T02:51:49+00:00",
-    "lastCheckedAt": "2026-08-05",
     "verified": false,
     "reviewStatus": "pending",
     "confidence": "medium",
