@@ -1,5 +1,29 @@
 [
   {
+    "id": "auto-a854dcc57e159aac",
+    "school": "重庆大学",
+    "college": "计算机学院",
+    "type": "直博",
+    "title": "重庆大学计算机学院2027年推免研究生复试录取工作实施细则",
+    "deadline": null,
+    "publishedAt": "2026-09-16",
+    "sourceUrl": "https://yz.cqu.edu.cn/news/2026-09/2593.html",
+    "applyUrl": "https://yz.cqu.edu.cn/news/2026-09/2593.html",
+    "tags": [
+      "985",
+      "211",
+      "直博",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-19T05:59:10+00:00",
+    "lastCheckedAt": "2026-09-19",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-38802130d584a48a",
     "school": "重庆大学",
     "college": "大数据与软件学院",
