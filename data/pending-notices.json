@@ -1,5 +1,51 @@
 [
   {
+    "id": "auto-f274e8ff9e0f351e",
+    "school": "南京航空航天大学",
+    "college": "待审核确认",
+    "type": "预推免",
+    "title": "【推免招生】2027年招收推免生工作实施细则",
+    "deadline": null,
+    "publishedAt": "2026-09-20",
+    "sourceUrl": "https://cs.nuaa.edu.cn/2026/0920/c10851a411396/page.htm",
+    "applyUrl": "https://cs.nuaa.edu.cn/2026/0920/c10851a411396/page.htm",
+    "tags": [
+      "211",
+      "预推免",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-22T06:21:18+00:00",
+    "lastCheckedAt": "2026-09-22",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
+    "id": "auto-9eab05564e1c25d1",
+    "school": "南京航空航天大学",
+    "college": "待审核确认",
+    "type": "预推免",
+    "title": "【推免招生】2027年接收推免生报名通知",
+    "deadline": null,
+    "publishedAt": "2026-09-20",
+    "sourceUrl": "https://cs.nuaa.edu.cn/2026/0920/c10851a411399/page.htm",
+    "applyUrl": "https://cs.nuaa.edu.cn/2026/0920/c10851a411399/page.htm",
+    "tags": [
+      "211",
+      "预推免",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-22T06:21:17+00:00",
+    "lastCheckedAt": "2026-09-22",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-a854dcc57e159aac",
     "school": "重庆大学",
     "college": "计算机学院",
