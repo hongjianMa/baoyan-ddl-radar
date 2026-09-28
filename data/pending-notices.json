@@ -1,5 +1,77 @@
 [
   {
+    "id": "auto-c33be0519f8fbfb3",
+    "school": "华中科技大学",
+    "college": "计算机科学与技术学院",
+    "type": "预推免",
+    "title": "计算机科学与技术学院2027年推荐免试攻读硕士研究生工作方案及加分细则",
+    "deadline": null,
+    "publishedAt": "2026-09-13",
+    "sourceUrl": "http://www.cs.hust.edu.cn/info/1438/6139.htm",
+    "applyUrl": "http://www.cs.hust.edu.cn/info/1438/6139.htm",
+    "tags": [
+      "985",
+      "211",
+      "预推免",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-28T07:00:10+00:00",
+    "lastCheckedAt": "2026-09-28",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
+    "id": "auto-fa5cfbd53fc92268",
+    "school": "华中科技大学",
+    "college": "计算机科学与技术学院",
+    "type": "预推免",
+    "title": "计算机科学与技术学院2027年接收预推免复试入围名单",
+    "deadline": null,
+    "publishedAt": "2026-09-16",
+    "sourceUrl": "http://www.cs.hust.edu.cn/info/1439/6179.htm",
+    "applyUrl": "http://www.cs.hust.edu.cn/info/1439/6179.htm",
+    "tags": [
+      "985",
+      "211",
+      "预推免",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-28T07:00:09+00:00",
+    "lastCheckedAt": "2026-09-28",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
+    "id": "auto-10675be5e0c9054e",
+    "school": "华中科技大学",
+    "college": "计算机科学与技术学院",
+    "type": "预推免",
+    "title": "华中科技大学计算机科学与技术学院2027年研究生预推免通过名单",
+    "deadline": null,
+    "publishedAt": "2026-09-20",
+    "sourceUrl": "http://www.cs.hust.edu.cn/info/1439/6242.htm",
+    "applyUrl": "http://www.cs.hust.edu.cn/info/1439/6242.htm",
+    "tags": [
+      "985",
+      "211",
+      "预推免",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-09-28T07:00:08+00:00",
+    "lastCheckedAt": "2026-09-28",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-f274e8ff9e0f351e",
     "school": "南京航空航天大学",
     "college": "待审核确认",
