@@ -1,5 +1,29 @@
 [
   {
+    "id": "auto-3c74877cbac9b015",
+    "school": "北京航空航天大学",
+    "college": "电子信息工程学院",
+    "type": "直博",
+    "title": "青春·奋斗 【青春·奋斗】顾靖萱：将热爱做到极致！ 从电磁兼容与防护全国重点实验室到科创赛场，她在一次次潜心钻研中找寻个人理想与国家需求的交汇点；从合唱排练厅到青春舞台，她借一段段动人旋律唱响北航学子的赤诚与热爱。科研与艺术，两条看似迥异的航迹，最终汇聚成同一个答案：将热爱做到极致，以所学报效家国。她师从苏东林院士，作为2026级研究生新生代表在开学典礼上分享了自己的求学故事，如今她选择继续在北航深造，深耕电磁领域，她就是电子信息工程学院2026级直博... 查看详情 >",
+    "deadline": null,
+    "publishedAt": "2026-10-27",
+    "sourceUrl": "http://news.buaa.edu.cn/info/1052/70136.htm",
+    "applyUrl": "http://news.buaa.edu.cn/info/1052/70136.htm",
+    "tags": [
+      "985",
+      "211",
+      "直博",
+      "自动发现"
+    ],
+    "discoveredAt": "2026-10-30T07:12:50+00:00",
+    "lastCheckedAt": "2026-10-30",
+    "verified": false,
+    "reviewStatus": "pending",
+    "confidence": "medium",
+    "sourceKind": "detail",
+    "activityStatus": "recent-needs-deadline-review"
+  },
+  {
     "id": "auto-fa5cfbd53fc92268",
     "school": "华中科技大学",
     "college": "计算机科学与技术学院",
