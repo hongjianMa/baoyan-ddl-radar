@@ -24,30 +24,6 @@
     "activityStatus": "recent-needs-deadline-review"
   },
   {
-    "id": "auto-fa5cfbd53fc92268",
-    "school": "华中科技大学",
-    "college": "计算机科学与技术学院",
-    "type": "预推免",
-    "title": "计算机科学与技术学院2027年接收预推免复试入围名单",
-    "deadline": null,
-    "publishedAt": "2026-09-16",
-    "sourceUrl": "http://www.cs.hust.edu.cn/info/1439/6179.htm",
-    "applyUrl": "http://www.cs.hust.edu.cn/info/1439/6179.htm",
-    "tags": [
-      "985",
-      "211",
-      "预推免",
-      "自动发现"
-    ],
-    "discoveredAt": "2026-09-28T07:00:09+00:00",
-    "lastCheckedAt": "2026-09-28",
-    "verified": false,
-    "reviewStatus": "pending",
-    "confidence": "medium",
-    "sourceKind": "detail",
-    "activityStatus": "recent-needs-deadline-review"
-  },
-  {
     "id": "auto-10675be5e0c9054e",
     "school": "华中科技大学",
     "college": "计算机科学与技术学院",
@@ -111,30 +87,6 @@
     ],
     "discoveredAt": "2026-09-22T06:21:17+00:00",
     "lastCheckedAt": "2026-09-22",
-    "verified": false,
-    "reviewStatus": "pending",
-    "confidence": "medium",
-    "sourceKind": "detail",
-    "activityStatus": "recent-needs-deadline-review"
-  },
-  {
-    "id": "auto-a854dcc57e159aac",
-    "school": "重庆大学",
-    "college": "计算机学院",
-    "type": "直博",
-    "title": "重庆大学计算机学院2027年推免研究生复试录取工作实施细则",
-    "deadline": null,
-    "publishedAt": "2026-09-16",
-    "sourceUrl": "https://yz.cqu.edu.cn/news/2026-09/2593.html",
-    "applyUrl": "https://yz.cqu.edu.cn/news/2026-09/2593.html",
-    "tags": [
-      "985",
-      "211",
-      "直博",
-      "自动发现"
-    ],
-    "discoveredAt": "2026-09-19T05:59:10+00:00",
-    "lastCheckedAt": "2026-09-19",
     "verified": false,
     "reviewStatus": "pending",
     "confidence": "medium",
