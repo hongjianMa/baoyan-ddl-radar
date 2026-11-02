@@ -92,53 +92,5 @@
     "confidence": "medium",
     "sourceKind": "detail",
     "activityStatus": "recent-needs-deadline-review"
-  },
-  {
-    "id": "auto-38802130d584a48a",
-    "school": "重庆大学",
-    "college": "大数据与软件学院",
-    "type": "直博",
-    "title": "重庆大学大数据与软件学院2027年推免研究生复试录取工作实施细则",
-    "deadline": null,
-    "publishedAt": "2026-09-17",
-    "sourceUrl": "https://yz.cqu.edu.cn/news/2026-09/2600.html",
-    "applyUrl": "https://yz.cqu.edu.cn/news/2026-09/2600.html",
-    "tags": [
-      "985",
-      "211",
-      "直博",
-      "自动发现"
-    ],
-    "discoveredAt": "2026-09-18T05:59:58+00:00",
-    "lastCheckedAt": "2026-09-18",
-    "verified": false,
-    "reviewStatus": "pending",
-    "confidence": "medium",
-    "sourceKind": "detail",
-    "activityStatus": "recent-needs-deadline-review"
-  },
-  {
-    "id": "auto-ec2726232aa5eaf5",
-    "school": "重庆大学",
-    "college": "自动化学院",
-    "type": "直博",
-    "title": "重庆大学自动化学院2027年推免研究生招生录取工作实施细则",
-    "deadline": null,
-    "publishedAt": "2026-09-17",
-    "sourceUrl": "https://yz.cqu.edu.cn/news/2026-09/2598.html",
-    "applyUrl": "https://yz.cqu.edu.cn/news/2026-09/2598.html",
-    "tags": [
-      "985",
-      "211",
-      "直博",
-      "自动发现"
-    ],
-    "discoveredAt": "2026-09-17T06:12:13+00:00",
-    "lastCheckedAt": "2026-09-17",
-    "verified": false,
-    "reviewStatus": "pending",
-    "confidence": "medium",
-    "sourceKind": "detail",
-    "activityStatus": "recent-needs-deadline-review"
   }
 ]
